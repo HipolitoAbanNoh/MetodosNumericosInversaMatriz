@@ -294,7 +294,14 @@ public class frmPrincipal extends javax.swing.JFrame {
     
         //funcion matriz multiplicar
     
-        //funcion matriz adjunta
+    //funcion matrizadjunta
+    public double[][] matrizAdjunta(double[][] matriz) {
+
+        double[][] matriz1 = matrizCofactores(matriz);
+
+        return matrizTranspuesta(matriz1);
+
+    }
     
      //funcion matriz cofactores
     public double[][] matrizCofactores(double[][] matriz) {
