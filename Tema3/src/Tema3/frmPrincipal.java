@@ -1,4 +1,3 @@
-
 package Tema3;
 
 import javax.swing.JOptionPane;
@@ -376,12 +375,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         }
         return submatriz;
     } 
-    
-    
-    
-    
-    
-    
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonGenerar;
     private javax.swing.JTable TablaInversa;
