@@ -291,21 +291,45 @@ public class frmPrincipal extends javax.swing.JFrame {
         return array_reg;
     }
     
-    public static double[][] getSubmatriz(double[][] matriz, int filas, int columnas, int columna) {
-        double[][] submatriz = new double[filas - 1][columnas - 1];
-        int contador = 0;
-        for (int j = 0; j < columnas; j++) {
-            if (j == columna) {
-                continue;
-            }
-            for (int i = 1; i < filas; i++) {
-                submatriz[i - 1][contador] = matriz[i][j];
-            }
-            contador++;
-        }
-        return submatriz;
-    }
     
+     //funcion matrizcofactores
+    public double[][] matrizCofactores(double[][] matriz) {
+        double[][] nm = new double[matriz.length][matriz.length];
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz.length; j++) {
+                double[][] det = new double[matriz.length - 1][matriz.length - 1];
+                double detValor;
+                for (int k = 0; k < matriz.length; k++) {
+                    if (k != i) {
+                        for (int l = 0; l < matriz.length; l++) {
+                            if (l != j) {
+                                int indice1 = k < i ? k : k - 1;
+                                int indice2 = l < j ? l : l - 1;
+                                det[indice1][indice2] = matriz[k][l];
+                            }
+                        }
+                    }
+                }
+                detValor = determinante(det);
+                nm[i][j] = detValor * (double) Math.pow(-1, i + j + 2);
+                System.out.println("cofactores = " + nm[i][j]);
+            }
+        }
+        return nm;
+    }
+
+    //funcion matriztranspuesta
+    public double[][] matrizTranspuesta(double[][] matriz) {
+        double[][] nuevam = new double[matriz[0].length][matriz.length];
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz.length; j++) {
+                nuevam[i][j] = matriz[j][i];
+                System.out.println("Transpuesta " + nuevam[i][j]);
+            }
+        }
+        return nuevam;
+    }
+ 
     
     public double determinante(double[][] matriz) {
         assert matriz != null;
@@ -333,7 +357,20 @@ public class frmPrincipal extends javax.swing.JFrame {
         System.out.println("determinante = "+ determinante);
         return determinante;
     }
-    
+       public static double[][] getSubmatriz(double[][] matriz, int filas, int columnas, int columna) {
+        double[][] submatriz = new double[filas - 1][columnas - 1];
+        int contador = 0;
+        for (int j = 0; j < columnas; j++) {
+            if (j == columna) {
+                continue;
+            }
+            for (int i = 1; i < filas; i++) {
+                submatriz[i - 1][contador] = matriz[i][j];
+            }
+            contador++;
+        }
+        return submatriz;
+    } 
     
     
     
