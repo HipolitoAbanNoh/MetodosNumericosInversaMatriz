@@ -291,8 +291,13 @@ public class frmPrincipal extends javax.swing.JFrame {
         return array_reg;
     }
     
+        //funcion matriz inversa final
     
-     //funcion matrizcofactores
+        //funcion matriz multiplicar
+    
+        //funcion matriz adjunta
+    
+     //funcion matriz cofactores
     public double[][] matrizCofactores(double[][] matriz) {
         double[][] nm = new double[matriz.length][matriz.length];
         for (int i = 0; i < matriz.length; i++) {
@@ -318,7 +323,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         return nm;
     }
 
-    //funcion matriztranspuesta
+    //funcion matriz transpuesta
     public double[][] matrizTranspuesta(double[][] matriz) {
         double[][] nuevam = new double[matriz[0].length][matriz.length];
         for (int i = 0; i < matriz.length; i++) {
