@@ -79,6 +79,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblMatrizEntrada);
 
         jbtnCalcular.setText("Calcular");
+        jbtnCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCalcularActionPerformed(evt);
+            }
+        });
 
         tblMatrizInversa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -199,6 +204,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_txtFilasActionPerformed
 
+    private void jbtnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCalcularActionPerformed
+        
+    }//GEN-LAST:event_jbtnCalcularActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -243,6 +252,94 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         }
     }
+    
+    public void mostrarMatrizInversa(double matriz[][], int fila, int columna) {
+
+        DefaultTableModel model = (DefaultTableModel) tblMatrizInversa.getModel();
+
+        model.setRowCount(fila);//filas
+        model.setColumnCount(columna);//columnas
+
+        for (int i = 0; i < fila; i++) {
+            for (int j = 0; j < columna; j++) {
+                //tblMatrizInversa.setValueAt(matriz[i][j], fila, columna);
+
+                tblMatrizInversa.setValueAt(matriz[i][j], fila, columna);
+
+            }
+        }
+
+    }
+    
+    
+    public double[][] guardar() {
+
+        //double[][] array_reg = new double[tblMatriz.getRowCount()][tblMatriz.getColumnCount()];
+        int fila = Integer.parseInt(txtFilas.getText());
+        int columna = Integer.parseInt(txtColumnas.getText());
+
+        double[][] array_reg = new double[fila][columna];
+
+        for (int f = 0; f < fila; f++) {
+            for (int c = 0; c < columna; c++) {
+                array_reg[f][c] = Integer.parseInt((String) tblMatrizEntrada.getValueAt(f, c));
+                System.out.println("numero = " + array_reg[f][c]);
+            }
+
+        }
+
+        return array_reg;
+    }
+    
+    public static double[][] getSubmatriz(double[][] matriz, int filas, int columnas, int columna) {
+        double[][] submatriz = new double[filas - 1][columnas - 1];
+        int contador = 0;
+        for (int j = 0; j < columnas; j++) {
+            if (j == columna) {
+                continue;
+            }
+            for (int i = 1; i < filas; i++) {
+                submatriz[i - 1][contador] = matriz[i][j];
+            }
+            contador++;
+        }
+        return submatriz;
+    }
+    
+    
+    public double determinante(double[][] matriz) {
+        assert matriz != null;
+        assert matriz.length > 0;
+        assert matriz.length == matriz[0].length;
+
+        double determinante = 0.0;
+
+        int filas = matriz.length;
+        int columnas = matriz[0].length;
+
+        // Si la matriz es 1x1, el determinante es el elemento de la matriz
+        if ((filas == 1) && (columnas == 1)) {
+            return matriz[0][0];
+        }
+
+        int signo = 1;
+
+        for (int columna = 0; columna < columnas; columna++) {
+            // Obtiene el adjunto de fila=0, columna=columna, pero sin el signo.
+            double[][] submatriz = getSubmatriz(matriz, filas, columnas, columna);
+            determinante = determinante + signo * matriz[0][columna] * determinante(submatriz);
+            signo *= -1;
+        }
+        System.out.println("determinante = "+ determinante);
+        return determinante;
+    }
+    
+    
+    
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonGenerar;
     private javax.swing.JTable TablaInversa;
