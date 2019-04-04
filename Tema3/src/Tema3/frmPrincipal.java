@@ -8,7 +8,7 @@ import javax.swing.table.AbstractTableModel;
 public class frmPrincipal extends javax.swing.JFrame {
     DefaultTableModel md;//sirve para implementar un modelo a la tabla
     String data[][] = {};//se crea una matriz contenido de la tabla Ejemplo
-    String cabeza[] = {"x", "x", "x"};//Emcabezado
+    String cabeza[] = {"A", "A", "A"};//Emcabezado
     
     public frmPrincipal() {
         initComponents();
@@ -204,6 +204,35 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFilasActionPerformed
 
     private void jbtnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCalcularActionPerformed
+            try {
+
+            int fila = Integer.parseInt(txtFilas.getText());
+            int columna = Integer.parseInt(txtColumnas.getText());
+            String matrizSalida[][] = new String[fila][columna];
+
+            String datos[] = new String[columna];//arreglo sirve para el emcabezado de la tablaInversa
+            for (int x = 0; x < columna; x++) {
+                String cadena = Integer.toString(x);
+                String cabeza = "x" + cadena;
+                datos[x] = cabeza;
+            }
+            double matrizResultado[][] = matrizInversa(guardar());
+            double matrizfinal[][] = matrizResultado;
+
+            for (int i = 0; i < fila; i++) {
+                for (int j = 0; j < columna; j++) {
+
+                    System.out.println(matrizfinal[i][j]);
+                    matrizSalida[i][j] = String.valueOf(matrizfinal[i][j]);
+                }
+            }
+            md.setDataVector(matrizSalida, datos);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Perfect");
+        }
+
+
         
     }//GEN-LAST:event_jbtnCalcularActionPerformed
 
@@ -270,6 +299,13 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     }
     
+    public double[][] matrizInversa(double[][] matriz) {
+        double det = 1 / determinante(matriz);
+        double[][] nmatriz = matrizAdjunta(matriz);
+        multiplicarMatriz(det, nmatriz);
+        return nmatriz;
+    }
+    
     
     public double[][] guardar() {
 
@@ -303,6 +339,13 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     }
     
+    public void multiplicarMatriz(double n, double[][] matriz) {
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz.length; j++) {
+                matriz[i][j] *= n;
+            }
+        }
+    }
      //funcion matriz cofactores
     public double[][] matrizCofactores(double[][] matriz) {
         double[][] nm = new double[matriz.length][matriz.length];
